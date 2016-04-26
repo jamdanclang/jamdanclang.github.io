@@ -12,8 +12,8 @@ body {
 	margin-bottom: 50px;
 	background: none;
 
-	font-family: 'Bebas Neue', 'helvetica neue', sans-serif; 
-	font-weight: 300;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
 	-webkit-font-smoothing: antialiased !important;
 	font-smoothing: antialiased !important;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.004) !important;
