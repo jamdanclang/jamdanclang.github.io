@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Nebraska BIA Impact Explorer (2014–2024)</title>
+<meta name="color-scheme" content="light"/>
+<style>
+:root {
+  color-scheme: light;
+  --bg:#f6f7fb; --panel:#ffffff; --text:#101425; --muted:#5b647a; --line:#e4e8f2;
+  --accent:#2f63ff; --accent2:#d18a12; --shadow: 0 10px 24px rgba(16,20,37,.08); --radius: 16px;
+  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+*{box-sizing:border-box}
+.wrap{max-width:1100px;margin:0 auto;padding:22px}
+header{padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow)}
+h1{margin:0;font-size:30px}
+.sub{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
+.chip{display:inline-flex;gap:8px;align-items:center;padding:9px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(16,20,37,.03)}
+.chip label{font-size:12px;color:var(--muted)}
+select,button{font:inherit;color:var(--text);background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;outline:none}
+button{cursor:pointer;background:rgba(47,99,255,.10);border-color:rgba(47,99,255,.30)}
+button:hover{background:rgba(47,99,255,.14)}
+.stack{margin-top:16px;display:flex;flex-direction:column;gap:16px}
+.panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow);padding:14px}
+.panel h2{margin:0 0 10px;font-size:14px;color:#1a2440;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.subnote{color:var(--muted);font-size:12px;line-height:1.45;margin:0}
+.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(16,20,37,.03);color:var(--muted);font-size:12px}
+.dot{width:10px;height:10px;border-radius:999px;display:inline-block}
+.dot.a{background:var(--accent)} .dot.b{background:var(--accent2)}
+.chartWrap{margin-top:10px;border:1px solid var(--line);border-radius:14px;background:rgba(16,20,37,.02);padding:10px}
+.chartTop{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:8px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+svg{width:100%;height:auto;display:block}
+.gridLine{stroke:rgba(16,20,37,.10);stroke-width:1}
+.axisText{fill:var(--muted);font-size:11px}
+.tooltip{position:fixed;z-index:9999;pointer-events:none;padding:10px;border-radius:12px;border:1px solid rgba(16,20,37,.12);
+  background:rgba(255,255,255,.97);box-shadow:0 12px 28px rgba(16,20,37,.16);color:var(--text);font-size:12px;max-width:320px;display:none}
+.tooltip .t{color:var(--muted);font-size:11px;margin-top:2px}
+.table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:14px;border:1px solid var(--line);
+  background:#fff;font-size:12px;margin-top:10px}
+.table th,.table td{padding:9px 10px;border-bottom:1px solid rgba(16,20,37,.08);vertical-align:top}
+.table th{text-align:left;font-weight:650;background:rgba(16,20,37,.03);color:#1a2440}
+.table tr:last-child td{border-bottom:none}
+.muted{color:var(--muted)}
+.callout{margin-top:10px;border:1px dashed rgba(209,138,18,.45);background:rgba(209,138,18,.06);color:#6a4a08;border-radius:14px;padding:10px 12px;font-size:12px;line-height:1.45}
+.kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-size:11px;padding:3px 6px;border-radius:8px;border:1px solid rgba(16,20,37,.14);background:rgba(16,20,37,.03)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Nebraska BIA Impact Explorer</h1>
+  <p class="sub">Jamdan Clang</p>
+	
+	<p> When <a href="https://nebraskaexaminer.com/2025/12/22/pillen-will-fully-fund-15-million-business-startup-program-he-had-cut-by-25/" target="_blank">a funding pause</a> for the Nebraska Business Innovation Act (BIA) programs led to an uproar from the Nebraska business community, it became a goal of mine to put BIA's biennial impact analyses to work.</p>
+
+<p>The Talent and Innovation Initiative was passed by the Nebraska Legislature and signed into law in 2011. The Act included the BIA, which is designed to promote successful entrepreneurial firms by providing access to capital in early stages of product development. The BIA provides such support through five primary programs:</p>
+
+<ol>
+<li>the Pre-Seed Prototype grant program; </li>
+<li>matching state support for the federal Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) grants; </li>
+<li>the Academic Research and Development grant program; </li>
+<li>the Seed/Commercialization program; and the </li>
+<li>Microenterprise Loan and Technical Assistance Program. </li>
+</ol>
+
+<p>The studies by the University of Nebraska-Lincoln Bureau of Business Research provide an economic impact assessment of Nebraska businesses that have been supported by the first four BIA programs (the Microenterprise Loan and Technical Assistance Program is excluded from analysis).</p>
+
+<p>Learn more about BIA programs from webpages linked on the <a href="https://opportunity.nebraska.gov/bia/" target="_blank">Nebraska Department of Economic Development website.</a></p>
+
+<p>This page gathers data from reports completed in <a href="" target="_blank">2014</a>, <a href="" target="_blank">2016</a>, <a href="" target="_blank">2018</a>, <a href="" target="_blank">2020</a>, <a href="" target="_blank">2022</a>, and <a href="" target="_blank">2024</a>.</p>
+	
+	
+  <div class="controls">
+    <div class="chip">
+      <label for="mode">View</label>
+      <select id="mode">
+        <option value="compare">Compare (two years)</option>
+        <option value="all">Compare all years</option>
+        <option value="single">Single year</option>
+      </select>
+    </div>
+    <div class="chip" id="compareYearsChip">
+      <label for="yearA">Year A</label><select id="yearA"></select>
+      <label for="yearB" style="margin-left:4px">Year B</label><select id="yearB"></select>
+    </div>
+    <div class="chip" id="singleYearChip" style="display:none">
+      <label for="yearSingle">Year</label><select id="yearSingle"></select>
+    </div>
+    <button id="downloadJson" title="Download the embedded dataset as JSON">Export data JSON</button>
+  </div>
+</header>
+
+<div class="stack">
+  <section class="panel">
+    <h2>Outcome charts <span class="pill" id="statusPill"></span></h2>
+
+    <div class="chartWrap">
+      <div class="chartTop">
+        <span class="pill"><span class="dot a"></span>Direct jobs created (count)</span>
+        <div class="legend" id="jobsLegend"></div>
+      </div>
+      <div id="jobsChart"></div>
+    </div>
+
+    <div class="chartWrap">
+      <div class="chartTop">
+        <span class="pill"><span class="dot b"></span>Annual economic impact ($M)</span>
+        <div class="legend" id="impactLegend"></div>
+      </div>
+      <div id="impactChart"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Industry table</h2>
+    <p class="subnote">For 2014 and 2016, the reports do not publish industry breakouts; cells show “—”.</p>
+
+    <div class="controls" style="margin-top:10px">
+      <div class="chip">
+        <label for="industryMeasure">Measure</label>
+        <select id="industryMeasure">
+          <option value="capitalRaised_m">Capital raised since first BIA award ($M)</option>
+          <option value="capitalLeverage">Capital raised per $1 of BIA support</option>
+          <option value="revenue_m">Revenue since first BIA award ($M)</option>
+        </select>
+      </div>
+      <div class="chip">
+        <label for="industryOrder">Sort</label>
+        <select id="industryOrder">
+          <option value="default">Default</option>
+          <option value="desc">Highest to lowest (latest year)</option>
+        </select>
+      </div>
+    </div>
+
+    <table class="table" id="industryTable"></table>
+    <div class="callout" id="industryCoverage"></div>
+  </section>
+
+  <section class="panel">
+    <h2>All trend metric comparisons</h2>
+    <p class="subnote">Compare all core BIA outcome metrics across every year in the dataset.</p>
+
+    <div class="controls" style="margin-top:10px">
+      <div class="chip">
+        <label for="trendMetric">Metric</label>
+        <select id="trendMetric">
+          <option value="directJobsBiennium">Direct jobs added in biennium (count)</option>
+          <option value="directJobsCumulative">Cumulative direct jobs created (count)</option>
+          <option value="annualEconomicImpact_m">Annual economic impact ($M)</option>
+          <option value="capitalPerDollar">Capital raised per $1 of BIA support</option>
+          <option value="revenuePerDollar">Revenue per $1 of BIA support</option>
+          <option value="avgWage">Average wage of direct jobs ($)</option>
+          <option value="annualStateLocalTaxImpact_m">Annual state &amp; local tax impact ($M)</option>
+          <option value="biaFundingBiennium_m" selected>BIA funding awarded in biennium ($M)</option>
+          <option value="biaFundingCumulative_m">Cumulative BIA funding awarded ($M)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="chartWrap">
+      <div class="chartTop">
+        <span class="pill" id="trendTitle"></span>
+      </div>
+      <div id="trendChart"></div>
+    </div>
+
+    
+    <details style="margin-top:10px" open>
+      <summary class="pill" style="cursor:pointer; user-select:none">All metrics table</summary>
+      <table class="table" id="trendAllMetricsTable" aria-label="All trend metrics values by year" style="margin-top:10px"></table>
+
+      <p class="subnote" id="deltaFootnote" style="margin-top:10px">
+        Δ% not shown for cumulative metrics to avoid overstating growth.
+      </p>
+
+    </details>
+
+  </section>
+
+</div>
+</div>
+
+<div class="tooltip" id="tip"></div>
+
+<script>
+const data = {"years": [2014, 2016, 2018, 2020, 2022, 2024], "series": {"metrics": {"totalBIAFundingAwarded_m": [7.321, 10.897, 22.5, 30.4, 39.4, 56.8], "capitalPerDollar": [5.12, 6.72, 4.46, 5.75, 10.68, 11.52], "revenuePerDollar": [2.32, 7.21, 4.47, 9.77, 12.23, 15.9], "directJobs": [162, 468, 630, 1108, 1603, 2386], "avgWage": [50617, 56325, 51746, 67064, 65300, 76498], "annualEconomicImpact_m": [53.45, 188.46, 284.3, 517.1, 752.3, 1170.7], "annualStateLocalTaxImpact_m": [1.22, 4.54, 6.5, 11.7, 16.3, 27.0]}}, "industry": {"industries": ["SaaS", "Bio", "Ag", "Mfg", "Other"], "labels": {"SaaS": "Software as a Service", "Bio": "Bioscience", "Ag": "Agriculture", "Mfg": "Manufacturing", "Other": "Other"}}, "industryTime": {"capitalRaised_m": {"2014": {"SaaS": null, "Bio": null, "Ag": null, "Mfg": null, "Other": null}, "2016": {"SaaS": null, "Bio": null, "Ag": null, "Mfg": null, "Other": null}, "2018": {"SaaS": 37.2, "Bio": 28.9, "Ag": 23.7, "Mfg": 3.1, "Other": 7.5}, "2020": {"SaaS": 80.0, "Bio": 53.3, "Ag": 23.9, "Mfg": 5.1, "Other": 12.4}, "2022": {"SaaS": 218.7, "Bio": 120.0, "Other": 29.6, "Ag": 26.9, "Mfg": 25.5}, "2024": {"SaaS": 250.9, "Bio": 227.0, "Other": 66.0, "Ag": 56.5, "Mfg": 53.7}}, "capitalLeverage": {"2014": {"SaaS": null, "Bio": null, "Ag": null, "Mfg": null, "Other": null}, "2016": {"SaaS": null, "Bio": null, "Ag": null, "Mfg": null, "Other": null}, "2018": {"SaaS": 5.72, "Bio": 4.58, "Ag": 4.1, "Mfg": 1.65, "Other": 3.63}, "2020": {"SaaS": 8.36, "Bio": 6.23, "Ag": 3.96, "Mfg": 1.91, "Other": 3.48}, "2022": {"SaaS": 17.0, "Bio": 11.42, "Mfg": 7.13, "Other": 5.32, "Ag": 3.91}, "2024": {"Bio": 18.42, "SaaS": 12.0, "Mfg": 9.78, "Other": 8.75, "Ag": 5.37}}, "revenue_m": {"2014": {"SaaS": null, "Bio": null, "Ag": null, "Mfg": null, "Other": null}, "2016": {"SaaS": null, "Bio": null, "Ag": null, "Mfg": null, "Other": null}, "2018": {"SaaS": 31.703311, "Bio": 9.715441, "Ag": 11.626443, "Mfg": 44.29469, "Other": 3.267926}, "2020": {"SaaS": 115.415723, "Bio": 15.200441, "Ag": 12.198736, "Mfg": 120.110896, "Other": 33.332272}, "2022": {"SaaS": 231.361431, "Mfg": 163.1946, "Other": 57.651464, "Bio": 15.875041, "Ag": 13.710736}, "2024": {"SaaS": 458.841284, "Mfg": 253.134328, "Other": 102.834992, "Ag": 56.870009, "Bio": 29.476372}}}};
+
+// Derived metrics
+(function addDerivedMetrics(){
+  if (!data || !data.series || !data.series.metrics) return;
+  const years = data.years || [];
+  const cum = data.series.metrics.totalBIAFundingAwarded_m;
+  if (Array.isArray(cum) && cum.length){
+    // Interpret totalBIAFundingAwarded_m as a cumulative series (as labeled in reports: "total awarded to date")
+    // Derive "awarded in biennium" as the delta between points.
+    const biennium = cum.map((v,i)=> (i===0 || v==null || cum[i-1]==null) ? v : (v - cum[i-1]));
+    data.series.metrics.biaFundingBiennium_m = biennium;
+    data.series.metrics.biaFundingCumulative_m = cum;
+  }
+})();
+
+
+  // Direct jobs created: interpret directJobs as cumulative-to-date and derive "added in biennium"
+  const jobsCum = data.series.metrics.directJobs;
+  if (Array.isArray(jobsCum) && jobsCum.length){
+    const jobsBiennium = jobsCum.map((v,i)=> (i===0 || v==null || jobsCum[i-1]==null) ? v : (v - jobsCum[i-1]));
+    data.series.metrics.directJobsBiennium = jobsBiennium;
+    data.series.metrics.directJobsCumulative = jobsCum;
+  }
+const fmt = {
+  // n is in millions for these metrics
+  moneyM1: (n)=> `$${n.toLocaleString(undefined,{maximumFractionDigits:1})}M`,
+  moneyCompactM: (n)=>{
+    if (n==null || Number.isNaN(n)) return "—";
+    const abs=Math.abs(n);
+    if (abs>=1000){
+      const b=n/1000;
+      return `$${b.toLocaleString(undefined,{maximumFractionDigits:2})}B`;
+    }
+    return `$${n.toLocaleString(undefined,{maximumFractionDigits:1})}M`;
+  },
+  money0:  (n)=> `$${Math.round(n).toLocaleString()}`,
+  ratio2:  (n)=> n.toLocaleString(undefined,{maximumFractionDigits:2}),
+  count0:  (n)=> Math.round(n).toLocaleString(),
+};
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+function download(filename, text){
+  const a=document.createElement('a');
+  a.setAttribute('href','data:text/plain;charset=utf-8,'+encodeURIComponent(text));
+  a.setAttribute('download',filename);
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+const tip=document.getElementById('tip');
+function showTip(x,y, html){
+  tip.innerHTML=html; tip.style.display='block';
+  const pad=14; const w=tip.offsetWidth; const h=tip.offsetHeight;
+  tip.style.left=clamp(x+12,pad,window.innerWidth-w-pad)+'px';
+  tip.style.top=clamp(y+12,pad,window.innerHeight-h-pad)+'px';
+}
+function hideTip(){ tip.style.display='none'; }
+
+function svgEl(tag, attrs={}){
+  const el=document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k,v] of Object.entries(attrs)) el.setAttribute(k,v);
+  return el;
+}
+
+function renderLineChart(targetEl, {years, values, stroke, valueLabel, valueFmt}){
+  const W=1020, H=250, pad={l:52,r:18,t:40,b:40};
+  const innerW=W-pad.l-pad.r, innerH=H-pad.t-pad.b;
+
+  const clean=values.filter(v=>v!=null && !Number.isNaN(v));
+  const maxY=Math.max(...clean,0), minY=Math.min(...clean,0);
+  const span=(maxY-minY)||1;
+
+  const x=(i)=> pad.l + (innerW*(i/(values.length-1)));
+  const y=(v)=> pad.t + innerH*(1-((v-minY)/span));
+
+  const svg=svgEl('svg',{viewBox:`0 0 ${W} ${H}`,role:"img"});
+  for (let t=0;t<=3;t++) {
+    const yy=pad.t + innerH*(t/3);
+    svg.appendChild(svgEl('line',{x1:pad.l,y1:yy,x2:W-pad.r,y2:yy,class:"gridLine"}));
+  }
+
+  let d="";
+  values.forEach((v,i)=>{
+    if (v==null || Number.isNaN(v)) return;
+    d += (d? " L ":"M ") + x(i).toFixed(2) + " " + y(v).toFixed(2);
+  });
+  svg.appendChild(svgEl('path',{d,fill:"none",stroke, "stroke-width":"2.6","stroke-linecap":"round","stroke-linejoin":"round"}));
+
+  values.forEach((v,i)=>{
+    const tx=svgEl('text',{x:x(i),y:H-14,class:"axisText","text-anchor":"middle"});
+    tx.textContent=String(years[i]); svg.appendChild(tx);
+
+    if (v==null || Number.isNaN(v)) return;
+    const c=svgEl('circle',{cx:x(i),cy:y(v),r:"4.2",fill:stroke,stroke:"#fff","stroke-width":"1.5",tabindex:"0"});
+    const html=`<b>${years[i]}</b><div class="t">${valueLabel}: ${valueFmt(v)}</div>`;
+    c.addEventListener('mousemove',(e)=>showTip(e.clientX,e.clientY,html));
+    c.addEventListener('mouseleave',hideTip);
+    c.addEventListener('focus',(e)=>{const rect=e.target.getBoundingClientRect();showTip(rect.left+rect.width/2,rect.top,html);});
+    c.addEventListener('blur',hideTip);
+    svg.appendChild(c);
+  });
+
+
+  // value labels (exact values)
+  values.forEach((v,i)=>{
+    if (v==null || Number.isNaN(v)) return;
+    const lbl=svgEl('text',{
+      x:x(i),
+      y:y(v)-8,
+      class:"axisText",
+      "text-anchor":"middle"
+    });
+    lbl.textContent=valueFmt(v);
+    svg.appendChild(lbl);
+  });
+
+  targetEl.innerHTML="";
+  targetEl.appendChild(svg);
+}
+
+function renderCompareBars(targetEl, {labelA,labelB, valA, valB, strokeA, strokeB, yFmt}){
+  const W=1020,H=220,pad={l:52,r:18,t:14,b:40};
+  const innerW=W-pad.l-pad.r, innerH=H-pad.t-pad.b;
+  const maxY=Math.max(valA??0, valB??0, 0);
+  const y1=maxY*1.12 || 1;
+  const y=(v)=> pad.t + innerH*(1-(v/y1));
+  const y0=pad.t+innerH;
+
+  const svg=svgEl('svg',{viewBox:`0 0 ${W} ${H}`,role:"img"});
+  for (let t=0;t<=3;t++) {
+    const yy=pad.t + innerH*(t/3);
+    svg.appendChild(svgEl('line',{x1:pad.l,y1:yy,x2:W-pad.r,y2:yy,class:"gridLine"}));
+  }
+
+  const barW=innerW*0.22;
+  const xA=pad.l + innerW*0.30 - barW/2;
+  const xB=pad.l + innerW*0.70 - barW/2;
+
+  const drawBar=(xPos,v,stroke,label)=>{
+    if (v==null) return;
+    const yV=y(v); const h=y0-yV;
+    const r=svgEl('rect',{x:xPos,y:yV,width:barW,height:h,rx:"12",fill:stroke,opacity:"0.55",tabindex:"0"});
+    const html=`<b>${label}</b><div class="t">${yFmt(v)}</div>`;
+    r.addEventListener('mousemove',(e)=>showTip(e.clientX,e.clientY,html));
+    r.addEventListener('mouseleave',hideTip);
+    r.addEventListener('focus',(e)=>{const rect=e.target.getBoundingClientRect();showTip(rect.left+rect.width/2,rect.top,html);});
+    r.addEventListener('blur',hideTip);
+    svg.appendChild(r);
+
+    const tx=svgEl('text',{x:xPos+barW/2,y:H-14,class:"axisText","text-anchor":"middle"});
+    tx.textContent=label; svg.appendChild(tx);
+  };
+
+  drawBar(xA,valA,strokeA,labelA);
+  if (labelB) drawBar(xB,valB,strokeB,labelB);
+
+  targetEl.innerHTML="";
+  targetEl.appendChild(svg);
+}
+
+function $(id){ return document.getElementById(id); }
+
+const els={
+  mode:$("mode"),
+  compareYearsChip:$("compareYearsChip"),
+  singleYearChip:$("singleYearChip"),
+  yearA:$("yearA"),
+  yearB:$("yearB"),
+  yearSingle:$("yearSingle"),
+  statusPill:$("statusPill"),
+  jobsLegend:$("jobsLegend"),
+  impactLegend:$("impactLegend"),
+  jobsChart:$("jobsChart"),
+  impactChart:$("impactChart"),
+  industryMeasure:$("industryMeasure"),
+  industryOrder:$("industryOrder"),
+  industryTable:$("industryTable"),
+  industryCoverage:$("industryCoverage"),
+};
+
+function populateYearSelects(){
+  const years=data.years;
+  const fill=(sel)=>{ sel.innerHTML=""; years.forEach(y=>{const o=document.createElement('option'); o.value=String(y); o.textContent=String(y); sel.appendChild(o);}); };
+  fill(els.yearA); fill(els.yearB); fill(els.yearSingle);
+  els.yearA.value="2022"; els.yearB.value="2024"; els.yearSingle.value="2024";
+}
+
+function getCtx(){
+  const mode=els.mode.value;
+  if (mode==="compare") return {mode, a:Number(els.yearA.value), b:Number(els.yearB.value)};
+  if (mode==="single") return {mode, y:Number(els.yearSingle.value)};
+  return {mode};
+}
+
+function renderOutcomeCharts(){
+  const ctx=getCtx();
+  const years=data.years;
+  const jobs=data.series.metrics.directJobs;
+  const impact=data.series.metrics.annualEconomicImpact_m;
+
+  if (ctx.mode==="all") {
+    els.statusPill.textContent=`All years: ${years[0]}–${years[years.length-1]}`;
+    els.jobsLegend.textContent="Trend line";
+    els.impactLegend.textContent="Trend line";
+    renderLineChart(els.jobsChart,{years,values:jobs,stroke:"#2f63ff",valueLabel:"Direct jobs",valueFmt:(v)=>fmt.count0(v)});
+    renderLineChart(els.impactChart,{years,values:impact,stroke:"#d18a12",valueLabel:"Annual economic impact",valueFmt:(v)=>fmt.moneyCompactM(v)});
+    return;
+  }
+  if (ctx.mode==="compare") {
+    const iA=years.indexOf(ctx.a);
+    const iB=years.indexOf(ctx.b);
+    els.statusPill.textContent=`Comparing ${ctx.a} → ${ctx.b}`;
+    els.jobsLegend.textContent="Bars by year";
+    els.impactLegend.textContent="Bars by year";
+    renderCompareBars(els.jobsChart,{labelA:String(ctx.a),labelB:String(ctx.b),valA:jobs[iA],valB:jobs[iB],strokeA:"#2f63ff",strokeB:"#d18a12",yFmt:(v)=>fmt.count0(v)});
+    renderCompareBars(els.impactChart,{labelA:String(ctx.a),labelB:String(ctx.b),valA:impact[iA],valB:impact[iB],strokeA:"#2f63ff",strokeB:"#d18a12",yFmt:(v)=>fmt.moneyCompactM(v)});
+    return;
+  }
+  const i=years.indexOf(ctx.y);
+  els.statusPill.textContent=`Single year: ${ctx.y}`;
+  els.jobsLegend.textContent="Selected year";
+  els.impactLegend.textContent="Selected year";
+  renderCompareBars(els.jobsChart,{labelA:String(ctx.y),labelB:"",valA:jobs[i],valB:null,strokeA:"#2f63ff",strokeB:"#d18a12",yFmt:(v)=>fmt.count0(v)});
+  renderCompareBars(els.impactChart,{labelA:String(ctx.y),labelB:"",valA:impact[i],valB:null,strokeA:"#d18a12",strokeB:"#2f63ff",yFmt:(v)=>fmt.moneyCompactM(v)});
+}
+
+function getIndustryMap(key, year){
+  const m=data.industryTime[key]?.[year];
+  const out={};
+  data.industry.industries.forEach(k=> out[k]=(m && Object.prototype.hasOwnProperty.call(m,k)) ? m[k] : null);
+  return out;
+}
+
+function formatIndustryCell(key,v){
+  if (v==null) return "—";
+  if (key==="capitalLeverage") return v.toLocaleString(undefined,{maximumFractionDigits:2});
+  return `$${v.toLocaleString(undefined,{maximumFractionDigits:1})}M`;
+}
+
+function renderIndustryTable(){
+  const key=els.industryMeasure.value;
+  const years=data.years;
+  const cats=[...data.industry.industries];
+
+  if (els.industryOrder.value==="desc") {
+    const last=years[years.length-1];
+    const m=getIndustryMap(key,last);
+    cats.sort((a,b)=>(m[b]??-1e18)-(m[a]??-1e18));
+  }
+
+  const header=`<tr><th style="width:110px">Year</th>${cats.map(c=>`<th style="text-align:right">${c}</th>`).join("")}</tr>`;
+  const rows=years.map(yr=>{
+    const m=getIndustryMap(key,yr);
+    return `<tr><th>${yr}</th>${cats.map(c=>`<td style="text-align:right">${formatIndustryCell(key,m[c])}</td>`).join("")}</tr>`;
+  }).join("");
+  els.industryTable.innerHTML=header+rows;
+
+  const missingYears=years.filter(y=>{const m=data.industryTime[key]?.[y]; return !m || Object.values(m).every(v=>v==null);});
+  const hasSome=years.filter(y=>missingYears.indexOf(y)===-1);
+  const title = key==="capitalRaised_m" ? "Capital raised ($M)" : (key==="revenue_m" ? "Revenue ($M)" : "Capital leverage");
+  els.industryCoverage.innerHTML=`Coverage for <span class="kbd">${title}</span>: <b>${hasSome.length?hasSome.join(", "):"none"}</b> populated; <b>${missingYears.length?missingYears.join(", "):"none"}</b> missing.`;
+}
+
+function applyMode(){
+  const mode=els.mode.value;
+  els.compareYearsChip.style.display = (mode==="compare") ? "inline-flex" : "none";
+  els.singleYearChip.style.display = (mode==="single") ? "inline-flex" : "none";
+  renderOutcomeCharts();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  populateYearSelects();
+  $("downloadJson").addEventListener('click',()=>download("bia-impact-explorer-data.json", JSON.stringify(data,null,2)));
+
+  els.mode.addEventListener('change', applyMode);
+  [els.yearA,els.yearB,els.yearSingle].forEach(sel=>sel.addEventListener('change', applyMode));
+
+  els.industryMeasure.addEventListener('change', renderIndustryTable);
+  els.industryOrder.addEventListener('change', renderIndustryTable);
+
+  els.mode.value="all";
+  applyMode();
+  renderIndustryTable();
+});
+
+// --- All Trend Metric Comparisons ---
+const trendMetricSel = document.getElementById("trendMetric");
+const trendChartEl = document.getElementById("trendChart");
+const trendTitleEl = document.getElementById("trendTitle");
+
+const trendAllMetricsTableEl = document.getElementById("trendAllMetricsTable");
+
+function tableCell(v, key){
+  if (v==null || Number.isNaN(v)) return "—";
+  if (key==="directJobsBiennium" || key==="directJobsCumulative") return fmt.count0(v);
+  if (key==="avgWage") return fmt.money0(v);
+  if (key==="capitalPerDollar" || key==="revenuePerDollar") return fmt.ratio2(v);
+  if (key==="annualEconomicImpact_m" || key==="annualStateLocalTaxImpact_m" || key==="biaFundingBiennium_m" || key==="biaFundingCumulative_m") return fmt.moneyM1(v);
+  // fallback
+  return String(v);
+}
+
+
+function renderAllMetricsTable(){
+  const years = data.years;
+  const keys = ["directJobsBiennium","directJobsCumulative","annualEconomicImpact_m","capitalPerDollar","revenuePerDollar","avgWage","annualStateLocalTaxImpact_m","biaFundingBiennium_m","biaFundingCumulative_m"];
+  const labels = {
+    directJobsBiennium:"Direct jobs added in biennium (count)",
+    directJobsCumulative:"Cumulative direct jobs created (count)",
+    annualEconomicImpact_m:"Annual economic impact ($M)",
+    capitalPerDollar:"Capital raised per $1 of BIA support",
+    revenuePerDollar:"Revenue per $1 of BIA support",
+    avgWage:"Average wage of direct jobs ($)",
+    annualStateLocalTaxImpact_m:"Annual state & local tax impact ($M)",
+    biaFundingBiennium_m:"BIA funding awarded in biennium ($M)",
+    biaFundingCumulative_m:"Cumulative BIA funding awarded ($M)"
+  };
+
+  const head = `<tr><th style="width:110px">Year</th>${keys.map(k=>`<th style="text-align:right">${labels[k]}</th>`).join("")}</tr>`;
+
+  const rows = years.map((yr, i)=>{
+    return `<tr>
+      <th>${yr}</th>
+      ${keys.map(k=>`<td style="text-align:right">${tableCell(data.series.metrics[k][i], k)}</td>`).join("")}
+    </tr>`;
+  }).join("");
+
+  // Total delta % row (last vs first)
+// Note: suppress Δ% for cumulative metrics to avoid overstating growth.
+const firstIdx = 0;
+const lastIdx = years.length - 1;
+const suppressed = new Set(["directJobsCumulative","biaFundingCumulative_m"]);
+
+const deltaRow = `<tr>
+  <th>Total Δ %</th>
+  ${keys.map(k=>{
+    if (suppressed.has(k)) return `<td style="text-align:right">—</td>`;
+    const start = data.series.metrics[k][firstIdx];
+    const end = data.series.metrics[k][lastIdx];
+    if (start==null || end==null || start===0) return `<td style="text-align:right">—</td>`;
+    const pct = ((end - start) / start) * 100;
+    const sign = pct>=0 ? "+" : "";
+    return `<td style="text-align:right">${sign}${pct.toLocaleString(undefined,{maximumFractionDigits:1})}%</td>`;
+  }).join("")}
+</tr>`;
+
+trendAllMetricsTableEl.innerHTML = head + rows + deltaRow;
+}function renderTrendMetric(){
+  const key = trendMetricSel.value;
+  const years = data.years;
+  const values = data.series.metrics[key];
+
+  const meta = {
+    directJobsBiennium: {label:"Direct jobs added in biennium (count)", fmt:(v)=>fmt.count0(v)},
+    directJobsCumulative: {label:"Cumulative direct jobs created (count)", fmt:(v)=>fmt.count0(v)},
+    annualEconomicImpact_m: {label:"Annual economic impact ($M)", fmt:(v)=>fmt.moneyCompactM(v)},
+    capitalPerDollar: {label:"Capital raised per $1 of BIA support", fmt:(v)=>fmt.ratio2(v)},
+    revenuePerDollar: {label:"Revenue per $1 of BIA support", fmt:(v)=>fmt.ratio2(v)},
+    avgWage: {label:"Average wage of direct jobs ($)", fmt:(v)=>fmt.money0(v)},
+    annualStateLocalTaxImpact_m: {label:"Annual state & local tax impact ($M)", fmt:(v)=>fmt.moneyCompactM(v)},
+    biaFundingBiennium_m: {label:"BIA funding awarded in biennium ($M)", fmt:(v)=>fmt.moneyCompactM(v)},
+    biaFundingCumulative_m: {label:"Cumulative BIA funding awarded ($M)", fmt:(v)=>fmt.moneyCompactM(v)},
+    };
+
+  const label = (meta[key] && meta[key].label) ? meta[key].label : key;
+  const fmtFn = (meta[key] && meta[key].fmt) ? meta[key].fmt : (v)=>String(v);
+
+  trendTitleEl.textContent = label + " (all years)";
+  renderAllMetricsTable();
+  renderLineChart(trendChartEl,{
+    years,
+    values,
+    stroke:"#2f63ff",
+    valueLabel:label,
+    valueFmt:fmtFn
+  });
+}
+
+trendMetricSel.addEventListener("change", renderTrendMetric);
+renderTrendMetric();
+
+</script>
+</body>
+</html>
