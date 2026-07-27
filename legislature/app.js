@@ -101,3 +101,4 @@ void Promise.allSettled([
   refreshHistory(),
   fetch(api('/api/health')),
 ]);
+
