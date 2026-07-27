@@ -1,0 +1,131 @@
+{
+  "last_notebook_update": "2026-07-26T22:14:25.816391+00:00",
+  "sessions": [
+    {
+      "year": "109B",
+      "label": "Nebraska Legislature 109th Legislature, 2nd Session"
+    },
+    {
+      "year": "109A",
+      "label": "Nebraska Legislature 109th Legislature, 1st Session"
+    },
+    {
+      "year": "108B",
+      "label": "Nebraska Legislature 108th Legislature, 2nd Session"
+    },
+    {
+      "year": "108A",
+      "label": "Nebraska Legislature 108th Legislature, 1st Session"
+    },
+    {
+      "year": "107B",
+      "label": "Nebraska Legislature 107th Legislature, 2nd Session"
+    },
+    {
+      "year": "107A",
+      "label": "Nebraska Legislature 107th Legislature, 1st Session"
+    },
+    {
+      "year": "106B",
+      "label": "Nebraska Legislature 106th Legislature, 2nd Session"
+    },
+    {
+      "year": "106A",
+      "label": "Nebraska Legislature 106th Legislature, 1st Session"
+    },
+    {
+      "year": "105B",
+      "label": "Nebraska Legislature 105th Legislature, 2nd Session"
+    },
+    {
+      "year": "105A",
+      "label": "Nebraska Legislature 105th Legislature, 1st Session"
+    }
+  ],
+  "agencies": [
+    "Department of Agriculture",
+    "Department of Correctional Services",
+    "Department of Economic Development",
+    "Department of Education",
+    "Department of Environment and Energy",
+    "Department of Health and Human Services",
+    "Department of Labor",
+    "Department of Motor Vehicles",
+    "Department of Natural Resources",
+    "Department of Revenue",
+    "Department of Transportation",
+    "Game and Parks Commission"
+  ],
+  "bill_statuses": [
+    "Introduced",
+    "In committee",
+    "General File",
+    "Select File",
+    "Final Reading",
+    "Passed",
+    "Approved by Governor",
+    "Indefinitely postponed"
+  ],
+  "popular_topics": [
+    "Agriculture",
+    "Budget and appropriations",
+    "Education",
+    "Elections",
+    "Health care",
+    "Housing",
+    "Judiciary and corrections",
+    "Local government",
+    "Natural resources",
+    "Taxes and revenue",
+    "Transportation",
+    "Workforce"
+  ],
+  "requests": [
+    {
+      "id": 20,
+      "original_question": "who voted no on the most number of bills",
+      "created_at": "2026-07-25 20:15:51",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-07-25 20:43:41",
+      "permalink": "requests/20.html"
+    },
+    {
+      "id": 19,
+      "original_question": "Who voted against the most number of bills?",
+      "created_at": "2026-07-25 20:11:48",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-07-25 20:43:40",
+      "permalink": "requests/19.html"
+    },
+    {
+      "id": 18,
+      "original_question": "What does LB1064 do?",
+      "created_at": "2026-07-25 02:04:04",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-07-25 20:43:40",
+      "permalink": "requests/18.html"
+    },
+    {
+      "id": 17,
+      "original_question": "What was the fiscal impact of LB1067?",
+      "created_at": "2026-07-25 01:54:37",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-07-25 20:43:40",
+      "permalink": "requests/17.html"
+    },
+    {
+      "id": 12,
+      "original_question": "What was the fiscal impact of LB1067?",
+      "created_at": "2026-07-25 01:33:49",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-07-25 20:43:39",
+      "permalink": "requests/12.html"
+    }
+  ]
+}
+
