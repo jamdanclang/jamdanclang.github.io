@@ -1,4 +1,8 @@
 const api = (path) => `${window.NELEG_API_BASE.replace(/\/$/, "")}${path}`;
+const apiFetch = (path, options = {}) => fetch(api(path), {
+  ...options,
+  headers: {...(window.NELEG_API_HEADERS || {}), ...(options.headers || {})},
+});
 const esc = (value) => String(value ?? "").replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const optionSources = [
   ['session', 'sessions', 'year', 'label'],
@@ -46,13 +50,13 @@ async function loadStaticData() {
 }
 
 async function refreshOptions() {
-  const response = await fetch(api('/api/options'));
+  const response = await apiFetch('/api/options');
   if (!response.ok) throw new Error('Options unavailable');
   renderOptions(await response.json());
 }
 
 async function refreshHistory() {
-  const response = await fetch(api('/api/history'));
+  const response = await apiFetch('/api/history');
   if (!response.ok) throw new Error('History unavailable');
   renderHistory((await response.json()).requests);
 }
@@ -76,7 +80,7 @@ document.getElementById('query-form').addEventListener('submit', async event => 
   button.textContent = 'Researching...';
   try {
     const payload = Object.fromEntries(new FormData(event.currentTarget));
-    const response = await fetch(api('/api/ask'), {
+    const response = await apiFetch('/api/ask', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload),
@@ -99,6 +103,6 @@ void loadStaticData().catch(() => {
 void Promise.allSettled([
   refreshOptions(),
   refreshHistory(),
-  fetch(api('/api/health')),
+  apiFetch('/api/health'),
 ]);
 
