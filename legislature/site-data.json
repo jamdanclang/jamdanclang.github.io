@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 26,
+      "original_question": "Does Nebraska have a requirement of a balanced budget?",
+      "created_at": "2026-07-31 02:10:11",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-07-31 02:10:11",
+      "permalink": "requests/26.html"
+    },
+    {
       "id": 25,
       "original_question": "Is there a prison overpopulation problem in Nebraska?",
       "created_at": "2026-07-31 01:03:17",
