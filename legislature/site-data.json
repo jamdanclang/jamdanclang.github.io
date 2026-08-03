@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 31,
+      "original_question": "What was the most divisive bill in the last 5 years?",
+      "created_at": "2026-08-03 03:25:28",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-08-03 03:25:28",
+      "permalink": "requests/31.html"
+    },
+    {
       "id": 30,
       "original_question": "If I was a left-leaning politician, who might I pattern my career off of? Are there any bills that they failed to enact that I might pick up next session?",
       "created_at": "2026-08-03 02:59:01",
@@ -179,15 +188,6 @@
       "answer_mode": "standard",
       "published_at": "2026-07-25 20:43:40",
       "permalink": "requests/18.html"
-    },
-    {
-      "id": 17,
-      "original_question": "What was the fiscal impact of LB1067?",
-      "created_at": "2026-07-25 01:54:37",
-      "sessions_searched": "109B",
-      "answer_mode": "standard",
-      "published_at": "2026-07-25 20:43:40",
-      "permalink": "requests/17.html"
     }
   ]
 }
