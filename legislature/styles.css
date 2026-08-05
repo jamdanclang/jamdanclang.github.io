@@ -41,7 +41,7 @@ button:hover { background: #1c5546; }
 .optional { color: #7c8782; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
 .filter-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
 .filter-group { min-width: 0; margin: 0; padding: 14px; border: 1px solid #c8c5bc; background: #faf9f5; }
-.filter-group legend { padding: 0 5px; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.filter-group legend { padding: 0 5px; font-size: 18px; font-weight: 700; letter-spacing: .02em; }
 .filter-group > p { color: #68736e; font-size: 11px; margin: 0 0 10px; }
 .checkbox-list { display: grid; gap: 3px; max-height: 168px; overflow-y: auto; }
 .checkbox-list label { display: flex; gap: 8px; align-items: flex-start; padding: 5px 4px; color: #26332e; font-size: 12px; line-height: 1.3; cursor: pointer; }
