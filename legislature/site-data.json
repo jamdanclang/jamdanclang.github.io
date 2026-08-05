@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 32,
+      "original_question": "What were the bills passed in the 2022 legislative sessions that affected the Nebraska Department of Economic Development?",
+      "created_at": "2026-08-05 18:53:18",
+      "sessions_searched": "107B",
+      "answer_mode": "standard",
+      "published_at": "2026-08-05 18:53:18",
+      "permalink": "requests/32.html"
+    },
+    {
       "id": 31,
       "original_question": "What was the most divisive bill in the last 5 years?",
       "created_at": "2026-08-03 03:25:28",
@@ -179,15 +188,6 @@
       "answer_mode": "standard",
       "published_at": "2026-07-25 20:43:40",
       "permalink": "requests/19.html"
-    },
-    {
-      "id": 18,
-      "original_question": "What does LB1064 do?",
-      "created_at": "2026-07-25 02:04:04",
-      "sessions_searched": "109B",
-      "answer_mode": "standard",
-      "published_at": "2026-07-25 20:43:40",
-      "permalink": "requests/18.html"
     }
   ]
 }
