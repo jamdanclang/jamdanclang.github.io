@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 36,
+      "original_question": "Who cares most about water rights in nebraska?",
+      "created_at": "2026-08-05 22:22:34",
+      "sessions_searched": "109B,109A,108B,108A,107B,107A,106B,106A,105B,105A",
+      "answer_mode": "deep",
+      "published_at": "2026-08-05 22:22:34",
+      "permalink": "requests/36.html"
+    },
+    {
       "id": 35,
       "original_question": "What were some of Brett Lindstrom's accomplishments as a senator?",
       "created_at": "2026-08-05 19:57:24",
@@ -179,15 +188,6 @@
       "answer_mode": "standard",
       "published_at": "2026-07-31 01:03:17",
       "permalink": "requests/25.html"
-    },
-    {
-      "id": 24,
-      "original_question": "When did Texas become a state?",
-      "created_at": "2026-07-30 00:59:06",
-      "sessions_searched": "109B",
-      "answer_mode": "standard",
-      "published_at": "2026-07-30 00:59:06",
-      "permalink": "requests/24.html"
     }
   ]
 }
