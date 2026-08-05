@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 34,
+      "original_question": "How has legislation shaped North Omaha?",
+      "created_at": "2026-08-05 19:44:51",
+      "sessions_searched": "109B,109A,108B,108A,107B,107A,106B,106A,105B,105A",
+      "answer_mode": "deep",
+      "published_at": "2026-08-05 19:44:51",
+      "permalink": "requests/34.html"
+    },
+    {
       "id": 33,
       "original_question": "What were the bills passed in the 2022 legislative sessions that affected the Nebraska Department of Economic Development?",
       "created_at": "2026-08-05 19:37:38",
@@ -179,15 +188,6 @@
       "answer_mode": "standard",
       "published_at": "2026-07-29 01:34:01",
       "permalink": "requests/23.html"
-    },
-    {
-      "id": 20,
-      "original_question": "who voted no on the most number of bills",
-      "created_at": "2026-07-25 20:15:51",
-      "sessions_searched": "109B",
-      "answer_mode": "standard",
-      "published_at": "2026-07-25 20:43:41",
-      "permalink": "requests/20.html"
     }
   ]
 }
