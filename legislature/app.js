@@ -5,25 +5,31 @@ const apiFetch = (path, options = {}) => fetch(api(path), {
 });
 const esc = (value) => String(value ?? "").replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const optionSources = [
-  ['session', 'sessions', 'year', 'label'],
-  ['agency', 'agencies'],
-  ['status', 'bill_statuses'],
-  ['topic', 'popular_topics'],
+  ['session', 'sessions', 'legislative_session', 'year', 'label'],
+  ['agency', 'agencies', 'related_agency'],
+  ['status', 'bill_statuses', 'bill_status'],
+  ['topic', 'popular_topics', 'popular_topic'],
 ];
 
-function fill(id, values = [], valueKey, labelKey) {
+function fill(id, values = [], name, valueKey, labelKey) {
   const el = document.getElementById(id);
-  while (el.options.length > 1) el.remove(1);
+  el.replaceChildren();
   values.forEach(item => {
-    const option = document.createElement('option');
-    option.value = valueKey ? item[valueKey] : item;
-    option.textContent = labelKey ? item[labelKey] : item;
-    el.appendChild(option);
+    const value = valueKey ? item[valueKey] : item;
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    const text = document.createElement('span');
+    input.type = 'checkbox';
+    input.name = name;
+    input.value = value;
+    text.textContent = labelKey ? `${value} · ${item[labelKey]}` : value;
+    label.append(input, text);
+    el.appendChild(label);
   });
 }
 
 function renderOptions(data) {
-  optionSources.forEach(([id, key, valueKey, labelKey]) => fill(id, data[key], valueKey, labelKey));
+  optionSources.forEach(([id, key, name, valueKey, labelKey]) => fill(id, data[key], name, valueKey, labelKey));
 }
 
 function renderHistory(requests = []) {
@@ -79,7 +85,10 @@ document.getElementById('query-form').addEventListener('submit', async event => 
   button.disabled = true;
   button.textContent = 'Researching...';
   try {
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
+    const formData = new FormData(event.currentTarget);
+    const payload = Object.fromEntries(formData);
+    ['legislative_session', 'related_agency', 'bill_status', 'popular_topic']
+      .forEach(name => { payload[name] = formData.getAll(name); });
     const response = await apiFetch('/api/ask', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
