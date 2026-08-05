@@ -127,7 +127,7 @@ function showLoading(mode) {
       phrase.textContent = phrases[index];
       phrase.classList.remove('is-changing');
     }, 180);
-  }, 2600);
+  }, 10000);
 }
 
 function hideLoading() {
