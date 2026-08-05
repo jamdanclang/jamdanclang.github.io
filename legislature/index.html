@@ -5,5 +5,14 @@
 <div class="filter-header"><div><h2>Focus the research</h2><p>Optional filters help route your question to the right notebook and source set.</p></div><span class="optional">Optional</span></div><div class="filter-grid"><fieldset class="filter-group"><legend>Legislative sessions</legend><p>Leave blank to automatically detect the session.</p><div class="checkbox-list" id="session"></div></fieldset><fieldset class="filter-group"><legend>Related agency</legend><p>Leave blank to include all agencies.</p><div class="checkbox-list" id="agency"></div></fieldset><fieldset class="filter-group"><legend>Bill statuses</legend><p>Leave blank to include any status.</p><div class="checkbox-list" id="status"></div></fieldset><fieldset class="filter-group"><legend>Popular topics</legend><p>Leave blank to include all topics.</p><div class="checkbox-list" id="topic"></div></fieldset></div>
 <fieldset class="depth-picker"><legend>Answer depth</legend><label><input type="radio" name="answer_mode" value="standard" checked><span><strong>Standard</strong> Fast, focused notebook answer</span></label><label><input type="radio" name="answer_mode" value="deep"><span><strong>Deep synthesis</strong> Additional processing for broad questions</span></label></fieldset></form></section>
 <section class="answer-card hidden" id="answer"><div class="answer-header"><div><p class="eyebrow">Research response</p><h2 id="answer-question"></h2></div><a id="permalink" href="#">Permanent page</a></div><div class="applied-filters" id="applied-filters"></div><div class="answer-content" id="answer-content"></div><section class="citations"><h3>Sources and citations</h3><ol id="citations"></ol></section></section><footer>Nebraska Legislative Research &middot; Source-grounded information for public use</footer></main></div>
+<div class="loading-modal hidden" id="loading-modal" role="dialog" aria-modal="true" aria-labelledby="loading-title" aria-describedby="loading-phrase">
+  <div class="loading-panel">
+    <div class="loading-seal" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="eyebrow">Research in progress</p>
+    <h2 id="loading-title">Working through the legislative record.</h2>
+    <p class="loading-phrase" id="loading-phrase" aria-live="polite">Selecting the relevant legislative files...</p>
+    <p class="loading-note">Deep synthesis can take several minutes. Please keep this page open.</p>
+  </div>
+</div>
 <script src="config.js"></script><script src="app.js"></script></body></html>
 

@@ -80,6 +80,20 @@ footer { color: #78817d; font-size: 10px; text-transform: uppercase; letter-spac
 .saved-page > .back-link { display: inline-block; margin-bottom: 22px; }
 .saved-page h1 { font-size: clamp(32px, 5vw, 52px); }
 button:disabled { opacity: .65; cursor: wait; }
+.is-loading { overflow: hidden; }
+.loading-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 22px; background: rgba(12,29,24,.72); backdrop-filter: blur(4px); }
+.loading-modal.hidden { display: none; }
+.loading-panel { width: min(520px, 100%); min-height: 310px; padding: clamp(30px, 6vw, 52px); background: #fbfaf6; border: 1px solid #d7d2c7; box-shadow: 0 24px 80px rgba(6,20,16,.35); text-align: center; }
+.loading-panel h2 { margin: 0; font: 400 clamp(27px, 5vw, 38px)/1.1 Georgia, serif; }
+.loading-seal { display: flex; justify-content: center; gap: 7px; height: 17px; margin: 0 auto 27px; }
+.loading-seal span { width: 11px; height: 11px; border-radius: 50%; background: #2f6856; animation: loading-pulse 1.2s ease-in-out infinite; }
+.loading-seal span:nth-child(2) { animation-delay: .16s; }
+.loading-seal span:nth-child(3) { animation-delay: .32s; }
+.loading-phrase { min-height: 48px; margin: 28px 0 8px; color: #315447; font: 18px/1.45 Georgia, serif; transition: opacity .18s ease, transform .18s ease; }
+.loading-phrase.is-changing { opacity: 0; transform: translateY(4px); }
+.loading-note { margin: 0; color: #727c77; font-size: 11px; line-height: 1.45; }
+@keyframes loading-pulse { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) { .loading-seal span { animation: none; } .loading-phrase { transition: none; } }
 @media (max-width: 1050px) { .process-flow { grid-template-columns: 1fr; } .process-step { min-height: 0; } .flow-arrow { justify-self: center; transform: rotate(90deg); } }
 @media (max-width: 860px) { .app-shell { grid-template-columns: 1fr; } .sidebar { display: grid; grid-template-columns: 220px 1fr; gap: 25px; } .nav-square { position: static; } .history { margin-top: 0; } main { padding-top: 32px; } }
 @media (max-width: 620px) { .sidebar { grid-template-columns: 1fr; } .nav-square { aspect-ratio: auto; min-height: 245px; } .history { display: none; } .page-header { display: block; } .status-pill { display: inline-block; margin-top: 20px; } .filter-grid { grid-template-columns: 1fr; } .query-actions { align-items: flex-start; flex-direction: column; } button { width: 100%; } .answer-header { display: block; } }

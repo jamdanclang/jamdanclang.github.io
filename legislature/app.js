@@ -79,13 +79,72 @@ function showAnswer(data) {
   document.getElementById('answer').scrollIntoView({behavior: 'smooth'});
 }
 
+const loadingPhrases = {
+  standard: [
+    'Selecting the relevant legislative files...',
+    'Consulting statute...',
+    'Fetching data from the Unicameral. No filibuster detected...',
+    'Writing in our notebook...',
+    'Parsing legal language into something resembling English...',
+    'Harvesting data... may or may not contain corn.',
+    'Getting visited by the ghost of legislatures past...',
+    'Stopping for Runza...',
+    'Checking the record and its citations...',
+    'Getting distracted by Husker highlights...'
+  ],
+  deep: [
+    'Selecting files across legislative sessions...',
+    'Searching each session notebook...',
+    'Consulting statute...',
+    'Comparing findings across the Unicameral record...',
+    'Fetching data from the Unicameral. No filibuster detected...',
+    'Writing session briefs in our notebook...',
+    'Synthesizing findings across sessions...',
+    'Recalculating... somewhere, a fiscal note just got longer.',
+    'Harvesting data... may or may not contain corn.',
+    'Parsing legal language into something resembling English...',
+    'Getting visited by the ghost of legislatures past...',
+    'Stopping for Runza...',
+    'Checking the final answer and its citations...',
+    'Getting distracted by Husker highlights...'
+  ]
+};
+let loadingTimer;
+
+function showLoading(mode) {
+  const modal = document.getElementById('loading-modal');
+  const phrase = document.getElementById('loading-phrase');
+  const phrases = loadingPhrases[mode] || loadingPhrases.standard;
+  let index = 0;
+  phrase.textContent = phrases[index];
+  modal.classList.remove('hidden');
+  document.body.classList.add('is-loading');
+  clearInterval(loadingTimer);
+  loadingTimer = setInterval(() => {
+    index = (index + 1) % phrases.length;
+    phrase.classList.add('is-changing');
+    setTimeout(() => {
+      phrase.textContent = phrases[index];
+      phrase.classList.remove('is-changing');
+    }, 180);
+  }, 2600);
+}
+
+function hideLoading() {
+  clearInterval(loadingTimer);
+  document.getElementById('loading-modal').classList.add('hidden');
+  document.body.classList.remove('is-loading');
+}
+
 document.getElementById('query-form').addEventListener('submit', async event => {
   event.preventDefault();
   const button = event.submitter;
+  const formData = new FormData(event.currentTarget);
+  let error;
   button.disabled = true;
   button.textContent = 'Researching...';
+  showLoading(formData.get('answer_mode'));
   try {
-    const formData = new FormData(event.currentTarget);
     const payload = Object.fromEntries(formData);
     ['legislative_session', 'related_agency', 'bill_status', 'popular_topic']
       .forEach(name => { payload[name] = formData.getAll(name); });
@@ -97,12 +156,14 @@ document.getElementById('query-form').addEventListener('submit', async event => 
     if (!response.ok) throw new Error('The research service could not complete this request.');
     showAnswer(await response.json());
     void refreshHistory().catch(() => {});
-  } catch (error) {
-    alert(error.message);
+  } catch (caughtError) {
+    error = caughtError;
   } finally {
+    hideLoading();
     button.disabled = false;
     button.textContent = 'Research question';
   }
+  if (error) alert(error.message);
 });
 
 void loadStaticData().catch(() => {
