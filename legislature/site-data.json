@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 33,
+      "original_question": "What were the bills passed in the 2022 legislative sessions that affected the Nebraska Department of Economic Development?",
+      "created_at": "2026-08-05 19:37:38",
+      "sessions_searched": "107B",
+      "answer_mode": "standard",
+      "published_at": "2026-08-05 19:37:38",
+      "permalink": "requests/33.html"
+    },
+    {
       "id": 32,
       "original_question": "What were the bills passed in the 2022 legislative sessions that affected the Nebraska Department of Economic Development?",
       "created_at": "2026-08-05 18:53:18",
@@ -179,15 +188,6 @@
       "answer_mode": "standard",
       "published_at": "2026-07-25 20:43:41",
       "permalink": "requests/20.html"
-    },
-    {
-      "id": 19,
-      "original_question": "Who voted against the most number of bills?",
-      "created_at": "2026-07-25 20:11:48",
-      "sessions_searched": "109B",
-      "answer_mode": "standard",
-      "published_at": "2026-07-25 20:43:40",
-      "permalink": "requests/19.html"
     }
   ]
 }
