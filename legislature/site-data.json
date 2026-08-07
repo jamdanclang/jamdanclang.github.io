@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 38,
+      "original_question": "When was ImagiNE Nebraska first enacted?",
+      "created_at": "2026-08-07 01:29:43",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-08-07 01:29:43",
+      "permalink": "requests/38.html"
+    },
+    {
       "id": 37,
       "original_question": "What is happening with legalizing marijuana?",
       "created_at": "2026-08-07 01:03:54",
@@ -179,15 +188,6 @@
       "answer_mode": "deep",
       "published_at": "2026-08-01 16:57:00",
       "permalink": "requests/27.html"
-    },
-    {
-      "id": 26,
-      "original_question": "Does Nebraska have a requirement of a balanced budget?",
-      "created_at": "2026-07-31 02:10:11",
-      "sessions_searched": "109B",
-      "answer_mode": "standard",
-      "published_at": "2026-07-31 02:10:11",
-      "permalink": "requests/26.html"
     }
   ]
 }
