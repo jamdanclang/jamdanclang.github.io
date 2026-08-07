@@ -1,0 +1,13 @@
+{
+  "requests": [
+    {
+      "id": 1,
+      "original_question": "What is happening with legalizing marijuana?",
+      "created_at": "2026-08-07 01:03:54",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-08-07 01:03:54",
+      "permalink": "requests/1.html"
+    }
+  ]
+}
