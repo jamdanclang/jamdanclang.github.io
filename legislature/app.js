@@ -111,10 +111,11 @@ const loadingPhrases = {
 };
 let loadingTimer;
 
-function showLoading(mode) {
+function showLoading(mode, sessionCount = 0) {
   const modal = document.getElementById('loading-modal');
   const phrase = document.getElementById('loading-phrase');
-  const phrases = loadingPhrases[mode] || loadingPhrases.standard;
+  const synthesisMode = mode === 'deep' || sessionCount > 1 ? 'deep' : 'standard';
+  const phrases = loadingPhrases[synthesisMode];
   let index = 0;
   phrase.textContent = phrases[index];
   modal.classList.remove('hidden');
@@ -143,7 +144,7 @@ document.getElementById('query-form').addEventListener('submit', async event => 
   let error;
   button.disabled = true;
   button.textContent = 'Researching...';
-  showLoading(formData.get('answer_mode'));
+  showLoading(formData.get('answer_mode'), formData.getAll('legislative_session').length);
   try {
     const payload = Object.fromEntries(formData);
     ['legislative_session', 'related_agency', 'bill_status', 'popular_topic']
