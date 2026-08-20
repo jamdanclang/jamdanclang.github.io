@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 41,
+      "original_question": "What were Lynn Walz's main achievements in the legislature?",
+      "created_at": "2026-08-20 03:04:02",
+      "sessions_searched": "109B,109A,108B,108A,107B,107A,106B,106A,105B,105A",
+      "answer_mode": "deep",
+      "published_at": "2026-08-20 03:04:02",
+      "permalink": "requests/41.html"
+    },
+    {
       "id": 40,
       "original_question": "What didn\u2019t get passed that will probably be reintroduced next session?",
       "created_at": "2026-08-19 18:14:28",
@@ -179,15 +188,6 @@
       "answer_mode": "deep",
       "published_at": "2026-08-03 02:59:01",
       "permalink": "requests/30.html"
-    },
-    {
-      "id": 29,
-      "original_question": "If I was a left-leaning politician, who might I pattern my career off of? Are there any bills that they failed to enact that I might pick up next session?",
-      "created_at": "2026-08-03 02:21:07",
-      "sessions_searched": "109B",
-      "answer_mode": "deep",
-      "published_at": "2026-08-03 02:21:07",
-      "permalink": "requests/29.html"
     }
   ]
 }
