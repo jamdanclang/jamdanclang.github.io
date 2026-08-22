@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 45,
+      "original_question": "Tell me about the changes to SNAP benefits.",
+      "created_at": "2026-08-22 15:33:49",
+      "sessions_searched": "109B,109A,108B,108A,107B,107A,106B,106A,105B,105A",
+      "answer_mode": "deep",
+      "published_at": "2026-08-22 15:33:49",
+      "permalink": "requests/45.html"
+    },
+    {
       "id": 44,
       "original_question": "What were the most recent income tax changes?",
       "created_at": "2026-08-22 14:48:41",
@@ -179,15 +188,6 @@
       "answer_mode": "deep",
       "published_at": "2026-08-05 19:44:51",
       "permalink": "requests/34.html"
-    },
-    {
-      "id": 33,
-      "original_question": "What were the bills passed in the 2022 legislative sessions that affected the Nebraska Department of Economic Development?",
-      "created_at": "2026-08-05 19:37:38",
-      "sessions_searched": "107B",
-      "answer_mode": "standard",
-      "published_at": "2026-08-05 19:37:38",
-      "permalink": "requests/33.html"
     }
   ]
 }
