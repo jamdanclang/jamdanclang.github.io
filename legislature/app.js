@@ -75,9 +75,13 @@ async function fetchHistory() {
   return (await response.json()).requests;
 }
 
-async function recoverSubmittedRequest(question, requestIdsBeforeSubmit) {
-  for (const delay of [0, 1500, 3000, 5000]) {
-    if (delay) await wait(delay);
+async function recoverSubmittedRequest(question, requestIdsBeforeSubmit, answerMode) {
+  const timeout = answerMode === 'deep' ? 15 * 60 * 1000 : 5 * 60 * 1000;
+  const deadline = Date.now() + timeout;
+  let attempt = 0;
+  while (Date.now() < deadline) {
+    if (attempt) await wait(10000);
+    attempt += 1;
     try {
       const requests = await fetchHistory();
       renderHistory(requests);
@@ -161,6 +165,7 @@ let loadingTimer;
 
 function showLoading(mode, sessionCount = 0) {
   const modal = document.getElementById('loading-modal');
+  document.getElementById('loading-title').textContent = 'Working through the legislative record.';
   const phrase = document.getElementById('loading-phrase');
   const synthesisMode = mode === 'deep' || sessionCount > 1 ? 'deep' : 'standard';
   const phrases = loadingPhrases[synthesisMode];
@@ -177,6 +182,12 @@ function showLoading(mode, sessionCount = 0) {
       phrase.classList.remove('is-changing');
     }, 180);
   }, 10000);
+}
+
+function showRecoveryProgress() {
+  clearInterval(loadingTimer);
+  document.getElementById('loading-title').textContent = 'Reconnecting to your research.';
+  document.getElementById('loading-phrase').textContent = 'The research service may still be finishing your answer. Checking for the saved result...';
 }
 
 function hideLoading() {
@@ -203,11 +214,23 @@ document.getElementById('query-form').addEventListener('submit', async event => 
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload),
     });
-    if (!response.ok) throw new Error('The research service could not complete this request.');
+    if (!response.ok) {
+      const serviceError = new Error('The research service could not complete this request.');
+      serviceError.recoverable = false;
+      throw serviceError;
+    }
     showAnswer(await response.json());
     void refreshHistory().catch(() => {});
   } catch (caughtError) {
-    const recovered = await recoverSubmittedRequest(formData.get('question'), requestIdsBeforeSubmit);
+    const shouldRecover = caughtError.recoverable !== false;
+    if (shouldRecover) showRecoveryProgress();
+    const recovered = shouldRecover
+      ? await recoverSubmittedRequest(
+          formData.get('question'),
+          requestIdsBeforeSubmit,
+          formData.get('answer_mode'),
+        )
+      : null;
     if (recovered) {
       showAnswer(recovered);
       showQueryStatus('The connection closed after the research finished. Your completed answer was recovered.', 'success');
