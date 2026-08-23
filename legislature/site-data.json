@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 48,
+      "original_question": "What bills were requested by the Governor?",
+      "created_at": "2026-08-23 22:21:25",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-08-23 22:21:25",
+      "permalink": "requests/48.html"
+    },
+    {
       "id": 47,
       "original_question": "What are Elliot Bostar\u2019s major accomplishments?",
       "created_at": "2026-08-23 20:17:38",
@@ -179,15 +188,6 @@
       "answer_mode": "standard",
       "published_at": "2026-08-07 01:03:54",
       "permalink": "requests/37.html"
-    },
-    {
-      "id": 36,
-      "original_question": "Who cares most about water rights in nebraska?",
-      "created_at": "2026-08-05 22:22:34",
-      "sessions_searched": "109B,109A,108B,108A,107B,107A,106B,106A,105B,105A",
-      "answer_mode": "deep",
-      "published_at": "2026-08-05 22:22:34",
-      "permalink": "requests/36.html"
     }
   ]
 }
