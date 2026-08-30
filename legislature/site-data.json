@@ -82,6 +82,15 @@
   ],
   "requests": [
     {
+      "id": 51,
+      "original_question": "If I were a legislative liaison, what would I need to know about this session?",
+      "created_at": "2026-08-30 19:56:34",
+      "sessions_searched": "109B",
+      "answer_mode": "standard",
+      "published_at": "2026-08-30 19:56:34",
+      "permalink": "requests/51.html"
+    },
+    {
       "id": 50,
       "original_question": "What did LB1048 do?",
       "created_at": "2026-08-25 14:21:22",
@@ -179,15 +188,6 @@
       "answer_mode": "standard",
       "published_at": "2026-08-19 18:14:29",
       "permalink": "requests/40.html"
-    },
-    {
-      "id": 39,
-      "original_question": "What were Lynn Walz's main achievements in the legislature?",
-      "created_at": "2026-08-19 01:21:33",
-      "sessions_searched": "109B",
-      "answer_mode": "standard",
-      "published_at": "2026-08-19 01:21:33",
-      "permalink": "requests/39.html"
     }
   ]
 }
