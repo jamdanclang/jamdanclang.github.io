@@ -59,12 +59,6 @@ async function loadStaticData() {
   renderHistory(data.requests);
 }
 
-async function refreshOptions() {
-  const response = await apiFetch('/api/options');
-  if (!response.ok) throw new Error('Options unavailable');
-  renderOptions(await response.json());
-}
-
 async function refreshHistory() {
   renderHistory(await fetchHistory());
 }
@@ -126,7 +120,7 @@ function showAnswer(data) {
   document.getElementById('applied-filters').innerHTML = Object.entries(data.filters || {}).map(([key, value]) => `<span>${esc(key)}: ${esc(value)}</span>`).join('');
   const citations = data.citations || [];
   document.getElementById('citations').innerHTML = citations.length
-    ? citations.map(citation => `<li>${citation.url ? `<a href="${esc(citation.url)}" rel="noopener noreferrer">${esc(citation.source)}</a>` : `<strong>${esc(citation.source)}</strong>`}${citation.location ? ` &middot; ${esc(citation.location)}` : ''}${citation.excerpt ? `<blockquote>${esc(citation.excerpt)}</blockquote>` : ''}</li>`).join('')
+    ? citations.map(citation => `<li>${citation.url ? `<a href="${esc(citation.url)}" rel="noopener noreferrer">${esc(citation.source)}</a>` : `<strong>${esc(citation.source)}</strong>`}${citation.location ? ` &middot; ${esc(citation.location)}` : ''}${citation.excerpt ? `<blockquote>${citation.excerpt_label ? `<strong>${esc(citation.excerpt_label)}:</strong> ` : ''}${esc(citation.excerpt)}</blockquote>` : ''}</li>`).join('')
     : '<li>No source citations were returned.</li>';
   document.getElementById('answer').scrollIntoView({behavior: 'smooth'});
 }
@@ -252,9 +246,4 @@ void loadStaticData().catch(() => {
   renderLastUpdated(null);
   renderHistory([]);
 });
-void Promise.allSettled([
-  refreshOptions(),
-  refreshHistory(),
-  apiFetch('/api/health'),
-]);
 
