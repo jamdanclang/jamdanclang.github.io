@@ -4,6 +4,9 @@ const apiFetch = (path, options = {}) => fetch(api(path), {
   headers: {...(window.NELEG_API_HEADERS || {}), ...(options.headers || {})},
 });
 const esc = (value) => String(value ?? "").replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const normalizeQuestion = (value) => String(value ?? '').trim().replace(/\s+/g, ' ').toLocaleLowerCase();
+const wait = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
+const knownRequestIds = new Set();
 const optionSources = [
   ['session', 'sessions', 'legislative_session', 'year', 'label'],
   ['agency', 'agencies', 'related_agency'],
@@ -33,6 +36,7 @@ function renderOptions(data) {
 }
 
 function renderHistory(requests = []) {
+  requests.forEach(item => knownRequestIds.add(Number(item.id)));
   document.getElementById('history-count').textContent = requests.length;
   document.getElementById('history-list').innerHTML = requests.length
     ? requests.map(item => `<a class="history-item" href="${esc(item.permalink || `requests/${item.id}.html`)}"><p>${esc(item.original_question)}</p><span>${esc(item.created_at)} &middot; ${esc(item.sessions_searched)}</span></a>`).join('')
@@ -62,9 +66,56 @@ async function refreshOptions() {
 }
 
 async function refreshHistory() {
+  renderHistory(await fetchHistory());
+}
+
+async function fetchHistory() {
   const response = await apiFetch('/api/history');
   if (!response.ok) throw new Error('History unavailable');
-  renderHistory((await response.json()).requests);
+  return (await response.json()).requests;
+}
+
+async function recoverSubmittedRequest(question, requestIdsBeforeSubmit, answerMode) {
+  const timeout = answerMode === 'deep' ? 15 * 60 * 1000 : 5 * 60 * 1000;
+  const deadline = Date.now() + timeout;
+  let attempt = 0;
+  while (Date.now() < deadline) {
+    if (attempt) await wait(10000);
+    attempt += 1;
+    try {
+      const requests = await fetchHistory();
+      renderHistory(requests);
+      const match = requests.find(item => (
+        !requestIdsBeforeSubmit.has(Number(item.id))
+        && normalizeQuestion(item.original_question) === normalizeQuestion(question)
+      ));
+      if (!match) continue;
+
+      const response = await apiFetch(`/api/requests/${match.id}`);
+      if (!response.ok) continue;
+      const saved = await response.json();
+      return {
+        ...saved,
+        question: saved.question || saved.original_question,
+        filters: saved.filters || {},
+      };
+    } catch (_) {
+      // The original connection may still be recovering. Try again briefly.
+    }
+  }
+  return null;
+}
+
+function showQueryStatus(message, kind = 'error') {
+  const status = document.getElementById('query-status');
+  status.textContent = message;
+  status.className = `query-status ${kind}`;
+}
+
+function clearQueryStatus() {
+  const status = document.getElementById('query-status');
+  status.textContent = '';
+  status.className = 'query-status hidden';
 }
 
 function showAnswer(data) {
@@ -73,8 +124,9 @@ function showAnswer(data) {
   document.getElementById('answer-content').innerHTML = data.response_html;
   document.getElementById('permalink').href = data.permalink || `requests/?id=${data.id}`;
   document.getElementById('applied-filters').innerHTML = Object.entries(data.filters || {}).map(([key, value]) => `<span>${esc(key)}: ${esc(value)}</span>`).join('');
-  document.getElementById('citations').innerHTML = data.citations.length
-    ? data.citations.map(citation => `<li>${citation.url ? `<a href="${esc(citation.url)}" rel="noopener noreferrer">${esc(citation.source)}</a>` : `<strong>${esc(citation.source)}</strong>`}${citation.location ? ` &middot; ${esc(citation.location)}` : ''}${citation.excerpt ? `<blockquote>${esc(citation.excerpt)}</blockquote>` : ''}</li>`).join('')
+  const citations = data.citations || [];
+  document.getElementById('citations').innerHTML = citations.length
+    ? citations.map(citation => `<li>${citation.url ? `<a href="${esc(citation.url)}" rel="noopener noreferrer">${esc(citation.source)}</a>` : `<strong>${esc(citation.source)}</strong>`}${citation.location ? ` &middot; ${esc(citation.location)}` : ''}${citation.excerpt ? `<blockquote>${esc(citation.excerpt)}</blockquote>` : ''}</li>`).join('')
     : '<li>No source citations were returned.</li>';
   document.getElementById('answer').scrollIntoView({behavior: 'smooth'});
 }
@@ -113,6 +165,7 @@ let loadingTimer;
 
 function showLoading(mode, sessionCount = 0) {
   const modal = document.getElementById('loading-modal');
+  document.getElementById('loading-title').textContent = 'Working through the legislative record.';
   const phrase = document.getElementById('loading-phrase');
   const synthesisMode = mode === 'deep' || sessionCount > 1 ? 'deep' : 'standard';
   const phrases = loadingPhrases[synthesisMode];
@@ -131,6 +184,12 @@ function showLoading(mode, sessionCount = 0) {
   }, 10000);
 }
 
+function showRecoveryProgress() {
+  clearInterval(loadingTimer);
+  document.getElementById('loading-title').textContent = 'Reconnecting to your research.';
+  document.getElementById('loading-phrase').textContent = 'The research service may still be finishing your answer. Checking for the saved result...';
+}
+
 function hideLoading() {
   clearInterval(loadingTimer);
   document.getElementById('loading-modal').classList.add('hidden');
@@ -141,7 +200,8 @@ document.getElementById('query-form').addEventListener('submit', async event => 
   event.preventDefault();
   const button = event.submitter;
   const formData = new FormData(event.currentTarget);
-  let error;
+  const requestIdsBeforeSubmit = new Set(knownRequestIds);
+  clearQueryStatus();
   button.disabled = true;
   button.textContent = 'Researching...';
   showLoading(formData.get('answer_mode'), formData.getAll('legislative_session').length);
@@ -154,17 +214,38 @@ document.getElementById('query-form').addEventListener('submit', async event => 
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload),
     });
-    if (!response.ok) throw new Error('The research service could not complete this request.');
+    if (!response.ok) {
+      const serviceError = new Error('The research service could not complete this request.');
+      serviceError.recoverable = false;
+      throw serviceError;
+    }
     showAnswer(await response.json());
     void refreshHistory().catch(() => {});
   } catch (caughtError) {
-    error = caughtError;
+    const shouldRecover = caughtError.recoverable !== false;
+    if (shouldRecover) showRecoveryProgress();
+    const recovered = shouldRecover
+      ? await recoverSubmittedRequest(
+          formData.get('question'),
+          requestIdsBeforeSubmit,
+          formData.get('answer_mode'),
+        )
+      : null;
+    if (recovered) {
+      showAnswer(recovered);
+      showQueryStatus('The connection closed after the research finished. Your completed answer was recovered.', 'success');
+    } else {
+      showQueryStatus(
+        caughtError.message === 'The research service could not complete this request.'
+          ? caughtError.message
+          : 'The connection to the research service was lost, and no completed answer could be recovered. Please try again.',
+      );
+    }
   } finally {
     hideLoading();
     button.disabled = false;
     button.textContent = 'Research question';
   }
-  if (error) alert(error.message);
 });
 
 void loadStaticData().catch(() => {
