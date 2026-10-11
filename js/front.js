@@ -175,6 +175,27 @@
     setOpen(false, false);
 }());
 
+(function portfolioMasonry() {
+    if (typeof Masonry === 'undefined') return;
+    document.querySelectorAll('.grid > .row').forEach(function (row) {
+        if (!row.querySelector('.masonry-item')) return;
+        row.classList.add('masonry-ready');
+        var layout = new Masonry(row, {
+            itemSelector: '.masonry-item',
+            columnWidth: '.masonry-item',
+            gutter: 32,
+            percentPosition: true,
+            transitionDuration: 0
+        });
+        if (typeof imagesLoaded !== 'undefined') {
+            imagesLoaded(row).on('progress', function () { layout.layout(); });
+        }
+        if (document.fonts) {
+            document.fonts.ready.then(function () { layout.layout(); });
+        }
+    });
+}());
+
 $(function () {
 
     lightbox();
@@ -256,7 +277,7 @@ function carousels() {
  *  masonry
  *  =======================================*/
 
-/* The portfolio grid is responsive CSS Grid; no absolute Masonry positioning. */
+/* Masonry is initialized independently of jQuery by portfolioMasonry above. */
 
 /* =========================================
  *  Off-canvas menu
