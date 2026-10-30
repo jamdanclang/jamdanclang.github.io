@@ -23,7 +23,6 @@
         ['bikedetail.html', 'The Motorbike'],
         ['plandetail.html', 'Four Year Plans'],
         ['visdetail.html', 'Visual Communications (JOMC 131, 132 and 133)'],
-        ['bia.html', 'Nebraska BIA Impact Explorer'],
         ['japanese.html', 'basic-japanese-flashcards.html'],
         ['jamdan.html', 'Jamdan Clang']
     ];
